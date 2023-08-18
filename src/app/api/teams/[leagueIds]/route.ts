@@ -11,7 +11,7 @@ export async function GET(
     Returns a list of objects
     */
 
-  const leagueIds = params.leagueIds.split("-");
+  const leagueIds = params.leagueIds.split("-").map((el) => parseInt(el));
 
   let getTeamsQuery: string;
   try {
