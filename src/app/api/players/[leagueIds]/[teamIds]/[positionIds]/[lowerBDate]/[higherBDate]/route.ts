@@ -24,9 +24,9 @@ export async function GET(
   let getPlayersQuery: string;
   try {
     getPlayersQuery = buildGetPlayersQuery(
-      params.leagueIds.split("-"),
-      params.teamIds.split("-"),
-      params.positionIds.split("-"),
+      params.leagueIds.split("-").map((el) => parseInt(el)),
+      params.teamIds.split("-").map((el) => parseInt(el)),
+      params.positionIds.split("-").map((el) => parseInt(el)),
       params.lowerBDate,
       params.higherBDate
     );
