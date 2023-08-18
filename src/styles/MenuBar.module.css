@@ -1,0 +1,19 @@
+#container {
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
+  padding: 1em;
+  border-bottom: 1px black dotted;
+  align-items: center;
+}
+
+#logoText {
+  margin: 0;
+}
+
+#menuLinksContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  gap: 2em;
+}
