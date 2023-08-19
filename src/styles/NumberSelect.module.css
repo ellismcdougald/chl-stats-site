@@ -1,0 +1,55 @@
+#container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 2.375em;
+  border: 1px rgb(204, 204, 204) solid;
+  border-radius: 4px;
+  width: 17.5em;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#inputDiv {
+  width: 85%;
+  padding-left: 1em;
+}
+
+#input {
+  border: none;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 1em;
+}
+
+#input:focus {
+  outline: none;
+}
+
+#borderDiv {
+  height: 60%;
+  width: 0;
+  border-right: solid rgb(204, 204, 204) 1px;
+}
+
+#incrementDiv {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 95%;
+}
+
+.icon {
+  fill: rgb(204, 204, 204);
+  height: 20px;
+}
+
+.icon:hover {
+  fill: rgb(175, 175, 175);
+}
+
+#upIcon {
+  transform: rotate(180deg);
+}
