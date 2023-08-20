@@ -124,7 +124,6 @@ export default function FilterContainer(props: any) {
         ...filterSelections,
         players: fetchedPlayers,
       });
-      props.setSelectedPlayers(fetchedPlayers);
     }
 
     if (
@@ -320,7 +319,15 @@ export default function FilterContainer(props: any) {
           </div>
           <button
             id={styles.submitButton}
-            onClick={() => props.setSelectedPlayers(filterSelections.players)}
+            onClick={() => {
+              props.getFilterSelections(
+                filterSelections.stats,
+                filterSelections.strengths,
+                filterSelections.players,
+                filterSelections.teams,
+                filterSelections.minGP
+              );
+            }}
           >
             <div id={styles.textContainer}>Submit</div>
             <div id={styles.dropDownIconContainer}>
