@@ -1,0 +1,53 @@
+#totalContainer {
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  width: 100%;
+  margin-top: 1em;
+}
+
+#tableContainer {
+  width: 100%;
+}
+
+.table {
+  height: 90vh;
+  width: 100%;
+  overflow: scroll;
+}
+
+.table.sticky .header {
+  position: sticky;
+  z-index: 1;
+  width: fit-content;
+  top: 0;
+  background-color: white;
+}
+
+.header .tr {
+  border-bottom: 1px solid black;
+}
+
+.table.sticky .body {
+  position: relative;
+  z-index: 0;
+}
+
+.td:first-child,
+.th:first-child {
+  background-color: white;
+}
+
+.td {
+  padding: 0.15em 0;
+}
+
+.th:nth-child(1),
+.td:nth-child(1) {
+  text-align: left;
+}
+
+.th:not(:nth-child(1)),
+.td:not(:nth-child(1)) {
+  text-align: center;
+}
