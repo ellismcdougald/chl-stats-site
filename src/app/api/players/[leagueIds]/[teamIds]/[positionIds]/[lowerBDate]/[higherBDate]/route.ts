@@ -38,8 +38,13 @@ export async function GET(
     }
   }
 
+  type PlayerResult = {
+    player_id: number;
+    name: string;
+  };
+
   return createPool().then((pool) =>
-    selectFromDB(pool, getPlayersQuery).then((result) =>
+    selectFromDB(pool, getPlayersQuery).then((result: PlayerResult[] | null) =>
       NextResponse.json(result)
     )
   );

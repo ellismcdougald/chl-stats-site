@@ -24,8 +24,13 @@ export async function GET(
     }
   }
 
+  type TeamResult = {
+    code: string;
+    team_id: number;
+  };
+
   return createPool().then((pool) =>
-    selectFromDB(pool, getTeamsQuery).then((result) =>
+    selectFromDB(pool, getTeamsQuery).then((result: TeamResult[] | null) =>
       NextResponse.json(result)
     )
   );
