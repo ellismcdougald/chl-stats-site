@@ -10,7 +10,29 @@ import DateRangeSelect from "./selectBoxes/DateRangeSelect";
 import DropDownSearchSelect from "./selectBoxes/DropDownSearchSelect";
 
 export default function FilterContainer(props: any) {
-  const [filterOptions, setFilterOptions] = useState({
+  type FilterOptions = {
+    stats: string[];
+    strengths: string[];
+    players: { value: string; id: number }[];
+    earliestBirthdate: string | null;
+    latestBirthdate: string | null;
+    leagues: { value: string; id: number }[];
+    teams: { value: string; id: number }[];
+    positions: { value: string; id: number }[];
+  };
+  type FilterSelections = {
+    stats: string;
+    strengths: string;
+    minGP: number;
+    earliestBirthdate: string | null;
+    latestBirthdate: string | null;
+    leagues: { value: string; id: number }[];
+    teams: { value: string; id: number }[];
+    positions: { value: string; id: number }[];
+    players: { value: string; id: number }[];
+  };
+
+  const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     stats: ["Totals", "Rates"],
     strengths: ["All", "EV", "PP", "SH"],
     players: [],
@@ -29,7 +51,7 @@ export default function FilterContainer(props: any) {
       { value: "D", id: 4 },
     ],
   });
-  const [filterSelections, setFilterSelections] = useState({
+  const [filterSelections, setFilterSelections] = useState<FilterSelections>({
     stats: "Totals",
     strengths: "All",
     minGP: 15,
@@ -51,13 +73,13 @@ export default function FilterContainer(props: any) {
   });
 
   async function getTeams(
-    fOptions: any,
-    fSelections: any,
+    fOptions: FilterOptions,
+    fSelections: FilterSelections,
     leagueSelections: { value: string; id: number }[]
   ) {
     const res = await fetch(
       `http://localhost:3000/api/teams/${leagueSelections
-        .map((inst) => inst.id)
+        .map((inst: { value: string; id: number }) => inst.id)
         .join("-")}`
     );
     if (!res.ok) {
@@ -170,8 +192,6 @@ export default function FilterContainer(props: any) {
       }
       const fetchedLatestBirthdate = (await latestRes.json())[0].max;
 
-      console.log("run");
-
       setFilterOptions({
         ...filterOptions,
         earliestBirthdate: fetchedEarliestBirthdate,
@@ -200,7 +220,6 @@ export default function FilterContainer(props: any) {
     getEarliestAndLatestBirthdates();
   }, []);
 
-  console.log(filterOptions.earliestBirthdate);
   if (filterOptions.earliestBirthdate && filterOptions.latestBirthdate) {
     return (
       <div id={styles.container}>
@@ -249,13 +268,13 @@ export default function FilterContainer(props: any) {
             <DateRangeSelect
               startDate={filterSelections.earliestBirthdate}
               endDate={filterSelections.latestBirthdate}
-              updateSelectedStartDate={(newSelection: any) =>
+              updateSelectedStartDate={(newSelection: string) =>
                 setFilterSelections({
                   ...filterSelections,
                   earliestBirthdate: newSelection,
                 })
               }
-              updateSelectedEndDate={(newSelection: any) =>
+              updateSelectedEndDate={(newSelection: string) =>
                 setFilterSelections({
                   ...filterSelections,
                   latestBirthdate: newSelection,
@@ -270,7 +289,9 @@ export default function FilterContainer(props: any) {
             <DropDownSelect
               options={filterOptions.leagues}
               selectedOptions={filterSelections.leagues}
-              updateSelectedOptions={(newSelection: any) =>
+              updateSelectedOptions={(
+                newSelection: { value: string; id: number }[]
+              ) =>
                 setFilterSelections({
                   ...filterSelections,
                   leagues: newSelection,
@@ -283,7 +304,9 @@ export default function FilterContainer(props: any) {
             <DropDownSearchSelect
               options={filterOptions.teams}
               selectedOptions={filterSelections.teams}
-              updateSelectedOptions={(newSelection: any) =>
+              updateSelectedOptions={(
+                newSelection: { value: string; id: number }[]
+              ) =>
                 setFilterSelections({
                   ...filterSelections,
                   teams: newSelection,
@@ -296,7 +319,9 @@ export default function FilterContainer(props: any) {
             <DropDownSelect
               options={filterOptions.positions}
               selectedOptions={filterSelections.positions}
-              updateSelectedOptions={(newSelection: any) =>
+              updateSelectedOptions={(
+                newSelection: { value: string; id: number }[]
+              ) =>
                 setFilterSelections({
                   ...filterSelections,
                   positions: newSelection,
@@ -309,7 +334,9 @@ export default function FilterContainer(props: any) {
             <DropDownSearchSelect
               options={filterOptions.players}
               selectedOptions={filterSelections.players}
-              updateSelectedOptions={(newSelection: any) =>
+              updateSelectedOptions={(
+                newSelection: { value: string; id: number }[]
+              ) =>
                 setFilterSelections({
                   ...filterSelections,
                   players: newSelection,
