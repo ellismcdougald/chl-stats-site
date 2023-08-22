@@ -5,8 +5,8 @@ import { Pool } from "pg";
 
 export async function GET() {
   return createPool().then((pool: Pool) =>
-    selectFromDB(pool, latestBirthdateQuery).then((result: any) =>
-      NextResponse.json(result)
+    selectFromDB(pool, latestBirthdateQuery).then(
+      (result: { max: string }[] | null) => NextResponse.json(result)
     )
   );
 }
