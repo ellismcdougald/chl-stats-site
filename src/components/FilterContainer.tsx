@@ -9,7 +9,17 @@ import NumberSelect from "./selectBoxes/NumberSelect";
 import DateRangeSelect from "./selectBoxes/DateRangeSelect";
 import DropDownSearchSelect from "./selectBoxes/DropDownSearchSelect";
 
-export default function FilterContainer(props: any) {
+type FCProps = {
+  getFilterSelections: (
+    statsType: string,
+    gameState: string,
+    playerArr: { value: string; id: number }[],
+    teamArr: { value: string; id: number }[],
+    minGames: any
+  ) => void;
+};
+
+export default function FilterContainer(props: FCProps) {
   type FilterOptions = {
     stats: string[];
     strengths: string[];

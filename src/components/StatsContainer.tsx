@@ -38,11 +38,13 @@ type Data = {
   faceoff_percentage: string;
 };
 
-export default function StatsContainer(props: {
+type SCProps = {
   data: Data[];
-  statsSelection: string;
-  strengthSelection: string;
-}) {
+  statsSelection: string | null;
+  strengthSelection: string | null;
+};
+
+export default function StatsContainer(props: SCProps) {
   if (props.data.length === 0) {
     return <p>Loading stats...</p>;
   } else if (props.statsSelection === "Totals") {
