@@ -1,4 +1,44 @@
-export default function addColumnWidthToColumns(columns: any, data: any) {
+type Column = {
+  Header: string;
+  accessor: string;
+  sticky: string;
+  width: number;
+};
+
+type Data = {
+  player_id_1: number;
+  name: string;
+  season: string;
+  team_code: string;
+  league_id: string;
+  league_code: string;
+  position: string;
+  age: string;
+  gp: string;
+  goals: string;
+  first_assists: string;
+  second_assists: string;
+  assists: string;
+  points: string;
+  primary_points: string;
+  p_inv: string;
+  p1_inv: string;
+  p1_p: string;
+  g_a: string;
+  shots: string;
+  sh_percentage: string;
+  goals_for: string;
+  goals_against: string;
+  goals_for_percentage: string;
+  faceoff_wins: string;
+  faceoff_losses: string;
+  faceoff_percentage: string;
+};
+
+export default function addColumnWidthToColumns(
+  columns: Column[],
+  data: Data[]
+) {
   let headerWidth;
   let colWidth;
   for (let i = 0; i < columns.length; i++) {
@@ -9,7 +49,7 @@ export default function addColumnWidthToColumns(columns: any, data: any) {
   return columns;
 }
 
-function getColWidth(data: any, accessor: string) {
+function getColWidth(data: Data[], accessor: string) {
   const values = data.map((a: any) => a[accessor]);
   let maxLength = 0;
   let valueLength;
@@ -27,11 +67,11 @@ function getColWidth(data: any, accessor: string) {
   return maxLength;
 }
 
-function convertValueType(value: any) {
+function convertValueType(value: string) {
   if (value.includes("-")) {
     return value;
   } else if (!isNaN(parseInt(value))) {
-    return value * 1;
+    return parseInt(value) * 1;
   } else {
     return value;
   }
