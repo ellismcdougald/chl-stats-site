@@ -27,7 +27,7 @@ export default function Stats() {
     gameState: string,
     playerArr: { value: string; id: number }[],
     teamArr: { value: string; id: number }[],
-    minGames: any
+    minGames: number
   ) {
     setFilterSelections({
       stats: statsType,
