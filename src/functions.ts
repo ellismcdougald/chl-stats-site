@@ -1,8 +1,9 @@
 type Column = {
   Header: string;
   accessor: string;
-  sticky: string;
-  width: number;
+  sticky?: string;
+  Cell?: ({ value }: { value: any }) => string;
+  width?: number;
 };
 
 type Data = {
