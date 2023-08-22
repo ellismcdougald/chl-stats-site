@@ -6,7 +6,14 @@ import StatsContainer from "../../components/StatsContainer";
 import styles from "../../styles/Stats.module.css";
 
 export default function Stats() {
-  const [filterSelections, setFilterSelections] = useState({
+  type FilterSelections = {
+    stats: string | null;
+    strength: string | null;
+    players: { value: string; id: number }[] | null;
+    teams: { value: string; id: number }[] | null;
+    minGP: number | null;
+  };
+  const [filterSelections, setFilterSelections] = useState<FilterSelections>({
     stats: null,
     strength: null,
     players: null,
@@ -16,18 +23,18 @@ export default function Stats() {
   const [playerStats, setPlayerStats] = useState([]);
 
   function getFilterSelections(
-    statsType: any,
-    gameState: any,
-    playerIds: any,
-    teamIds: any,
-    minGP: any
+    statsType: string,
+    gameState: string,
+    playerArr: { value: string; id: number }[],
+    teamArr: { value: string; id: number }[],
+    minGames: any
   ) {
     setFilterSelections({
       stats: statsType,
       strength: gameState,
-      players: playerIds,
-      teams: teamIds,
-      minGP: minGP,
+      players: playerArr,
+      teams: teamArr,
+      minGP: minGames,
     });
   }
 
@@ -41,8 +48,10 @@ export default function Stats() {
     ) {
       const res = await fetch(
         `http://localhost:3000/api/playerStats/${statsType.toLowerCase()}/${gameState.toLowerCase()}/${playerIds
-          .map((player) => player.id)
-          .join("-")}/${teamIds.map((team) => team.id).join("-")}/${minGP}`
+          .map((player: { value: string; id: number }) => player.id)
+          .join("-")}/${teamIds
+          .map((team: { value: string; id: number }) => team.id)
+          .join("-")}/${minGP}`
       );
       if (!res.ok) {
         throw new Error("Failed to fetch data.");
