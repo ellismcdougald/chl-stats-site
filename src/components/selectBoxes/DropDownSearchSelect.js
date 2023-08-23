@@ -33,10 +33,6 @@ export default function DropDownSearchSelect(props) {
     <div id={styles.container}>
       <div id={styles.top} onClick={() => setDropDownActive(!dropDownActive)}>
         <div id={styles.textContainer}>
-          {/* {props.selectedOptions.length === props.options.length && "All"}
-          {props.selectedOptions.length < props.options.length &&
-            props.selectedOptions.join(", ")} */}
-
           {props.selectedOptions.length === 0
             ? "None"
             : props.selectedOptions.length === props.options.length
