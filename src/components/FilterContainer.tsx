@@ -81,6 +81,8 @@ export default function FilterContainer(props: FCProps) {
     ],
     players: [],
   });
+  const [sentInitialFilterSelections, setSentInitialFilterSelections] =
+    useState<boolean>(false);
 
   async function getTeams(
     fOptions: FilterOptions,
@@ -156,6 +158,17 @@ export default function FilterContainer(props: FCProps) {
         ...filterSelections,
         players: fetchedPlayers,
       });
+
+      if (!sentInitialFilterSelections) {
+        props.getFilterSelections(
+          filterSelections.stats,
+          filterSelections.strengths,
+          fetchedPlayers,
+          filterSelections.teams,
+          filterSelections.minGP
+        );
+        setSentInitialFilterSelections(true);
+      }
     }
 
     if (
