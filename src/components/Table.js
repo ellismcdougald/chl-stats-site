@@ -12,16 +12,12 @@ export default function Table(props) {
   const data = props.data;
   const columns = props.columns;
 
-  // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
-
-    // The rest of these things are super handy, too ;)
+    page,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -43,7 +39,6 @@ export default function Table(props) {
     useSticky
   );
 
-  // Render the UI for your table
   return (
     <div id={styles.totalContainer}>
       <div id={styles.tableContainer}>
@@ -52,30 +47,54 @@ export default function Table(props) {
           {...getTableProps()}
         >
           <div className={`${styles.header}`}>
-            {headerGroups.map((headerGroup) => (
-              <div
-                {...headerGroup.getHeaderGroupProps()}
-                className={`${styles.tr}`}
-              >
-                {headerGroup.headers.map((column) => (
-                  <div
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className={`${styles.th}`}
-                  >
-                    {column.render("Header")}
-                  </div>
-                ))}
-              </div>
-            ))}
+            {headerGroups.map((headerGroup) => {
+              const headerGroupProps = headerGroup.getHeaderGroupProps();
+              const headerGroupKey = headerGroupProps.key;
+              delete headerGroupProps.key;
+              return (
+                <div
+                  key={headerGroupKey}
+                  {...headerGroupProps}
+                  className={`${styles.tr}`}
+                >
+                  {headerGroup.headers.map((column) => {
+                    const headerProps = column.getHeaderProps(
+                      column.getSortByToggleProps()
+                    );
+                    const headerKey = headerProps.key;
+                    delete headerProps.key;
+                    return (
+                      <div
+                        key={headerKey}
+                        {...headerProps}
+                        className={`${styles.th}`}
+                      >
+                        {column.render("Header")}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
           <div className={`${styles.body}`} {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
+              const rowProps = row.getRowProps();
+              const rowKey = rowProps.key;
+              delete rowProps.key;
               return (
-                <div className={`${styles.tr}`} {...row.getRowProps()}>
+                <div className={`${styles.tr}`} key={rowKey} {...rowProps}>
                   {row.cells.map((cell) => {
+                    const cellProps = cell.getCellProps();
+                    const cellKey = cellProps.key;
+                    delete cellProps.key;
                     return (
-                      <div className={`${styles.td}`} {...cell.getCellProps()}>
+                      <div
+                        className={`${styles.td}`}
+                        key={cellKey}
+                        {...cellProps}
+                      >
                         {cell.render("Cell")}
                       </div>
                     );
