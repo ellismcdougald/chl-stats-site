@@ -48,6 +48,7 @@ export default function Stats() {
       gameState: string,
       playerIds: { value: string; id: number }[],
       teamIds: { value: string; id: number }[],
+      seasons: { value: string; id: string }[],
       minGP: number
     ) {
       const res = await fetch(
@@ -55,6 +56,8 @@ export default function Stats() {
           .map((player: { value: string; id: number }) => player.id)
           .join("-")}/${teamIds
           .map((team: { value: string; id: number }) => team.id)
+          .join("-")}/${seasons
+          .map((season: { value: string; id: string }) => season.id)
           .join("-")}/${minGP}`
       );
       if (!res.ok) {
@@ -68,6 +71,7 @@ export default function Stats() {
       filterSelections.strength &&
       filterSelections.players &&
       filterSelections.teams &&
+      filterSelections.seasons &&
       filterSelections.minGP
     ) {
       getPlayerStats(
@@ -75,6 +79,7 @@ export default function Stats() {
         filterSelections.strength,
         filterSelections.players,
         filterSelections.teams,
+        filterSelections.seasons,
         filterSelections.minGP
       );
     }
