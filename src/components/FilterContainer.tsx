@@ -74,7 +74,7 @@ export default function FilterContainer(props: FCProps) {
     minGP: 15,
     earliestBirthdate: null,
     latestBirthdate: null,
-    seasons: [{ value: "202223", id: "20222023" }],
+    seasons: [{ value: "2022-23", id: "20222023" }],
     leagues: [
       { value: "OHL", id: 1 },
       { value: "WHL", id: 2 },
