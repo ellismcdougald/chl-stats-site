@@ -15,6 +15,7 @@ type FCProps = {
     gameState: string,
     playerArr: { value: string; id: number }[],
     teamArr: { value: string; id: number }[],
+    seasonArr: { value: string; id: string }[],
     minGames: any
   ) => void;
 };
@@ -26,6 +27,7 @@ export default function FilterContainer(props: FCProps) {
     players: { value: string; id: number }[];
     earliestBirthdate: string | null;
     latestBirthdate: string | null;
+    seasons: { value: string; id: string }[];
     leagues: { value: string; id: number }[];
     teams: { value: string; id: number }[];
     positions: { value: string; id: number }[];
@@ -36,6 +38,7 @@ export default function FilterContainer(props: FCProps) {
     minGP: number;
     earliestBirthdate: string | null;
     latestBirthdate: string | null;
+    seasons: { value: string; id: string }[];
     leagues: { value: string; id: number }[];
     teams: { value: string; id: number }[];
     positions: { value: string; id: number }[];
@@ -48,6 +51,10 @@ export default function FilterContainer(props: FCProps) {
     players: [],
     earliestBirthdate: null,
     latestBirthdate: null,
+    seasons: [
+      { value: "2022-23", id: "2022-23" },
+      { value: "2021-22", id: "2021-22" },
+    ],
     leagues: [
       { value: "OHL", id: 1 },
       { value: "WHL", id: 2 },
@@ -67,6 +74,7 @@ export default function FilterContainer(props: FCProps) {
     minGP: 15,
     earliestBirthdate: null,
     latestBirthdate: null,
+    seasons: [{ value: "2022-23", id: "2022-23" }],
     leagues: [
       { value: "OHL", id: 1 },
       { value: "WHL", id: 2 },
@@ -165,6 +173,7 @@ export default function FilterContainer(props: FCProps) {
           filterSelections.strengths,
           fetchedPlayers,
           filterSelections.teams,
+          filterSelections.seasons,
           filterSelections.minGP
         );
         setSentInitialFilterSelections(true);
@@ -308,6 +317,21 @@ export default function FilterContainer(props: FCProps) {
             />
           </div>
           <div className={styles.inputDiv}>
+            <span>Season:</span>
+            <DropDownSelect
+              options={filterOptions.seasons}
+              selectedOptions={filterSelections.seasons}
+              updateSelectedOptions={(
+                newSelection: { value: string; id: string }[]
+              ) =>
+                setFilterSelections({
+                  ...filterSelections,
+                  seasons: newSelection,
+                })
+              }
+            />
+          </div>
+          <div className={styles.inputDiv}>
             <span>League:</span>
             <DropDownSelect
               options={filterOptions.leagues}
@@ -375,6 +399,7 @@ export default function FilterContainer(props: FCProps) {
                 filterSelections.strengths,
                 filterSelections.players,
                 filterSelections.teams,
+                filterSelections.seasons,
                 filterSelections.minGP
               );
             }}

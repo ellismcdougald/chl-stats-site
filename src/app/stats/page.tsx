@@ -11,6 +11,7 @@ export default function Stats() {
     strength: string | null;
     players: { value: string; id: number }[] | null;
     teams: { value: string; id: number }[] | null;
+    seasons: { value: string; id: string }[] | null;
     minGP: number | null;
   };
   const [filterSelections, setFilterSelections] = useState<FilterSelections>({
@@ -18,6 +19,7 @@ export default function Stats() {
     strength: null,
     players: null,
     teams: null,
+    seasons: null,
     minGP: null,
   });
   const [playerStats, setPlayerStats] = useState([]);
@@ -27,6 +29,7 @@ export default function Stats() {
     gameState: string,
     playerArr: { value: string; id: number }[],
     teamArr: { value: string; id: number }[],
+    seasonArr: { value: string; id: string }[],
     minGames: number
   ) {
     setFilterSelections({
@@ -34,6 +37,7 @@ export default function Stats() {
       strength: gameState,
       players: playerArr,
       teams: teamArr,
+      seasons: seasonArr,
       minGP: minGames,
     });
   }
