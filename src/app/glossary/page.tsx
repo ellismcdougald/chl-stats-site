@@ -86,6 +86,7 @@ export default function Glossary() {
   return (
     <div>
       <h3>Glossary:</h3>
+      <h4>Note: Shot statistics are not currently available for the WHL.</h4>
       {glossary.map((item) => {
         return <p key={item.name}>{`${item.name}: ${item.def}`}</p>;
       })}
