@@ -19,8 +19,11 @@ export async function createPool() {
   }
 }
 
-export async function selectFromDB(pool: Pool | undefined, queryText: string) {
-  if (pool) {
+export async function selectFromDB(
+  pool: Pool | undefined,
+  queryText: string | undefined
+) {
+  if (pool && queryText) {
     const client = await pool.connect();
     try {
       const res = await client.query(queryText);

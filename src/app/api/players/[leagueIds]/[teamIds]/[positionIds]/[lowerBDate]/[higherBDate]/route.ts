@@ -21,7 +21,7 @@ export async function GET(
       Returns a list of objects
       */
 
-  let getPlayersQuery: string;
+  let getPlayersQuery: string | undefined;
   try {
     getPlayersQuery = buildGetPlayersQuery(
       params.leagueIds.split("-").map((el) => parseInt(el)),

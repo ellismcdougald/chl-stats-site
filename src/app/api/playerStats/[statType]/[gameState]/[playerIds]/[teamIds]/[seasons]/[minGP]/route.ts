@@ -22,7 +22,7 @@ export async function GET(
         Returns a list of objects
         */
 
-  let getPlayerStatsQuery: string;
+  let getPlayerStatsQuery: string | undefined;
   try {
     getPlayerStatsQuery = buildGetPlayerStatsQuery(
       params.statType,

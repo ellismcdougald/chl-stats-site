@@ -13,7 +13,7 @@ export async function GET(
 
   const leagueIds = params.leagueIds.split("-").map((el) => parseInt(el));
 
-  let getTeamsQuery: string;
+  let getTeamsQuery: string | undefined;
   try {
     getTeamsQuery = buildGetTeamsQuery(leagueIds);
   } catch (err) {
