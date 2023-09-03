@@ -37,4 +37,3 @@ next-env.d.ts
 # database
 queries.ts
 buildQueries.ts
-db.ts
