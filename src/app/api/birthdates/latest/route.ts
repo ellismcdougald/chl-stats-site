@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
-import { latestBirthdateQuery } from "../../queries";
 import { createPool, selectFromDB } from "../../db";
 import { Pool } from "pg";
 
 export async function GET() {
-  return createPool().then((pool: Pool) =>
-    selectFromDB(pool, latestBirthdateQuery).then(
+  return createPool().then((pool: Pool | undefined) =>
+    selectFromDB(pool, process.env.QUERY_LATEST_BIRTHDATE).then(
       (result: { max: string }[] | null) => NextResponse.json(result)
     )
   );
