@@ -5,6 +5,36 @@ import FilterContainer from "../../components/FilterContainer";
 import StatsContainer from "../../components/StatsContainer";
 import styles from "../../styles/Stats.module.css";
 
+type Data = {
+  player_id_1: number;
+  name: string;
+  season: string;
+  team_code: string;
+  league_id: string;
+  league_code: string;
+  position: string;
+  age: string;
+  gp: string;
+  goals: string;
+  first_assists: string;
+  second_assists: string;
+  assists: string;
+  points: string;
+  primary_points: string;
+  p_inv: string;
+  p1_inv: string;
+  p1_p: string;
+  g_a: string;
+  shots: string;
+  sh_percentage: string;
+  goals_for: string;
+  goals_against: string;
+  goals_for_percentage: string;
+  faceoff_wins: string;
+  faceoff_losses: string;
+  faceoff_percentage: string;
+};
+
 export default function Stats() {
   type FilterSelections = {
     stats: string | null;
@@ -22,7 +52,7 @@ export default function Stats() {
     seasons: null,
     minGP: null,
   });
-  const [playerStats, setPlayerStats] = useState([]);
+  const [playerStats, setPlayerStats] = useState<Data[] | null>(null);
 
   function getFilterSelections(
     statsType: string,
@@ -76,14 +106,21 @@ export default function Stats() {
       filterSelections.seasons &&
       filterSelections.minGP
     ) {
-      getPlayerStats(
-        filterSelections.stats,
-        filterSelections.strength,
-        filterSelections.players,
-        filterSelections.teams,
-        filterSelections.seasons,
-        filterSelections.minGP
-      );
+      if (
+        filterSelections.players.length > 0 &&
+        filterSelections.teams.length > 0
+      ) {
+        getPlayerStats(
+          filterSelections.stats,
+          filterSelections.strength,
+          filterSelections.players,
+          filterSelections.teams,
+          filterSelections.seasons,
+          filterSelections.minGP
+        );
+      } else {
+        setPlayerStats([]);
+      }
     }
   }, [filterSelections]);
 

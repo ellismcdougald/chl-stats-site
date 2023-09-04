@@ -39,14 +39,16 @@ type Data = {
 };
 
 type SCProps = {
-  data: Data[];
+  data: Data[] | null;
   statsSelection: string | null;
   strengthSelection: string | null;
 };
 
 export default function StatsContainer(props: SCProps) {
-  if (props.data.length === 0) {
+  if (!props.data) {
     return <p>Loading stats...</p>;
+  } else if (props.data.length === 0) {
+    return <p>No stats found.</p>;
   } else if (props.statsSelection === "Totals") {
     if (props.strengthSelection === "EV") {
       return (
