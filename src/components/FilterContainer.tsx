@@ -97,6 +97,11 @@ export default function FilterContainer(props: FCProps) {
     fSelections: FilterSelections,
     leagueSelections: { value: string; id: number }[]
   ) {
+    console.log(
+      `${process.env.NEXT_PUBLIC_SITE_HOST}/api/teams/${leagueSelections
+        .map((inst: { value: string; id: number }) => inst.id)
+        .join("-")}`
+    );
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SITE_HOST}/api/teams/${leagueSelections
         .map((inst: { value: string; id: number }) => inst.id)
@@ -120,6 +125,8 @@ export default function FilterContainer(props: FCProps) {
       ...fSelections,
       teams: fetchedTeams,
     });
+
+    console.log(fetchedTeams);
   }
 
   useEffect(() => {
@@ -139,6 +146,15 @@ export default function FilterContainer(props: FCProps) {
       earliestBirthdate: string | null,
       latestBirthdate: string | null
     ) {
+      console.log(
+        `${process.env.NEXT_PUBLIC_SITE_HOST}/api/players/${leagueSelections
+          .map((inst) => inst.id)
+          .join("-")}/${teamSelections
+          .map((inst) => inst.id)
+          .join("-")}/${positionSelections
+          .map((inst) => inst.id)
+          .join("-")}/${earliestBirthdate}/${latestBirthdate}`
+      );
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SITE_HOST}/api/players/${leagueSelections
           .map((inst) => inst.id)
@@ -178,6 +194,8 @@ export default function FilterContainer(props: FCProps) {
         );
         setSentInitialFilterSelections(true);
       }
+
+      console.log(fetchedPlayers);
     }
 
     if (
