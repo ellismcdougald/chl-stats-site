@@ -31,14 +31,7 @@ export async function GET(
 
   return createPool().then((pool) =>
     selectFromDB(pool, getTeamsQuery).then((result: TeamResult[] | null) =>
-      NextResponse.json(result, {
-        status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
-      })
+      NextResponse.json(result)
     )
   );
 }
