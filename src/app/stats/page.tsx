@@ -52,7 +52,9 @@ export default function Stats() {
       minGP: number
     ) {
       const res = await fetch(
-        `http://localhost:3000/api/playerStats/${statsType.toLowerCase()}/${gameState.toLowerCase()}/${playerIds
+        `http://${
+          process.env.NEXT_PUBLIC_SITE_HOST
+        }/api/playerStats/${statsType.toLowerCase()}/${gameState.toLowerCase()}/${playerIds
           .map((player: { value: string; id: number }) => player.id)
           .join("-")}/${teamIds
           .map((team: { value: string; id: number }) => team.id)
