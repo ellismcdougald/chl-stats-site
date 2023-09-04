@@ -98,7 +98,7 @@ export default function FilterContainer(props: FCProps) {
     leagueSelections: { value: string; id: number }[]
   ) {
     const res = await fetch(
-      `http://localhost:3000/api/teams/${leagueSelections
+      `${process.env.NEXT_PUBLIC_SITE_HOST}/api/teams/${leagueSelections
         .map((inst: { value: string; id: number }) => inst.id)
         .join("-")}`
     );
@@ -140,7 +140,7 @@ export default function FilterContainer(props: FCProps) {
       latestBirthdate: string | null
     ) {
       const res = await fetch(
-        `http://localhost:3000/api/players/${leagueSelections
+        `${process.env.NEXT_PUBLIC_SITE_HOST}/api/players/${leagueSelections
           .map((inst) => inst.id)
           .join("-")}/${teamSelections
           .map((inst) => inst.id)
@@ -209,7 +209,7 @@ export default function FilterContainer(props: FCProps) {
   useEffect(() => {
     async function getEarliestAndLatestBirthdates() {
       const earliestRes = await fetch(
-        "http://localhost:3000/api/birthdates/earliest"
+        `${process.env.NEXT_PUBLIC_SITE_HOST}/api/birthdates/earliest`
       );
       if (!earliestRes.ok) {
         throw new Error("Failed to fetch data.");
@@ -217,7 +217,7 @@ export default function FilterContainer(props: FCProps) {
       const fetchedEarliestBirthdate = (await earliestRes.json())[0].min;
 
       const latestRes = await fetch(
-        "http://localhost:3000/api/birthdates/latest"
+        `${process.env.NEXT_PUBLIC_SITE_HOST}/api/birthdates/latest`
       );
       if (!latestRes.ok) {
         throw new Error("Failed to fetch data.");
