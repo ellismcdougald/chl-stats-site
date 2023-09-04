@@ -31,7 +31,11 @@ export default function Table(props) {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 50 },
+      initialState: {
+        pageIndex: 0,
+        pageSize: 50,
+        sortBy: [{ id: "points", desc: true }],
+      },
     },
     useBlockLayout,
     useSortBy,
