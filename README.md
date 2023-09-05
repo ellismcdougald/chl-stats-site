@@ -1,34 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CHL Statistics Website
 
-## Getting Started
+This is a website that displays player statistics from the Canadian Hockey League. Statistics are available in both totals and rate (per game) form for the 2022-23, 2021-22, and 2020-21 seasons. Please note that Ontario Hockey League statistics are not available for the 2020-21 season as the OHL did not play any games that year due to the COVID-19 pandemic. The stats can be filtered by serveral factors, including game strength (even-strength, powerplay, shorthanded, and all-situations), season, league, team, position, players, player birthdate range, and minimum games played. The resulting statistics table can also be sorted by any of its columns.
 
-First, run the development server:
+The website is built with NextJS and deployed with Vercel. Statistics are stored in a PostgreSQL database.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The website can be viewed here: https://chl-stats-site.vercel.app
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Images
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Stats
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![Screenshot of the website stats page](/demoscreenshot-stats.png?raw=true)
 
-## Learn More
+### Glossary
 
-To learn more about Next.js, take a look at the following resources:
+![Screenshot of the website glossary page](/demoscreenshot-glossary.png?raw=true)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Email me at ecmcdougald@gmail.com.
