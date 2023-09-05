@@ -93,94 +93,100 @@ export default function FilterContainer(props: FCProps) {
   const [sentInitialFilterSelections, setSentInitialFilterSelections] =
     useState<boolean>(false);
 
-  async function getTeams(
-    fOptions: FilterOptions,
-    fSelections: FilterSelections,
-    leagueSelections: { value: string; id: number }[]
-  ) {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_HOST}/api/teams/${leagueSelections
-        .map((inst: { value: string; id: number }) => inst.id)
-        .join("-")}`
-    );
-    if (!res.ok) {
-      throw new Error("Failed to fetch data.");
-    }
-
-    const fetchedTeams = (await res.json()).map(
-      (el: { code: string; team_id: number }) => {
-        return {
-          value: el.code,
-          id: el.team_id,
-        };
-      }
-    );
-
-    setFilterOptions({ ...fOptions, teams: fetchedTeams });
-    setFilterSelections({
-      ...fSelections,
-      teams: fetchedTeams,
-    });
-  }
-
-  useEffect(() => {
-    if (filterSelections.leagues.length > 0) {
-      getTeams(filterOptions, filterSelections, filterSelections.leagues);
-    } else {
-      setFilterSelections({ ...filterSelections, teams: [] });
-    }
-  }, [JSON.stringify(filterSelections.leagues)]);
-
-  // Get players
-  useEffect(() => {
-    async function getPlayers(
-      leagueSelections: { value: string; id: number }[],
-      teamSelections: { value: string; id: number }[],
-      positionSelections: { value: string; id: number }[],
-      earliestBirthdate: string | null,
-      latestBirthdate: string | null
-    ) {
+  async function getTeams() {
+    if (filterOptions.earliestBirthdate) {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_HOST}/api/players/${leagueSelections
-          .map((inst) => inst.id)
-          .join("-")}/${teamSelections
-          .map((inst) => inst.id)
-          .join("-")}/${positionSelections
-          .map((inst) => inst.id)
-          .join("-")}/${earliestBirthdate}/${latestBirthdate}`
+        `${
+          process.env.NEXT_PUBLIC_SITE_HOST
+        }/api/teams/${filterSelections.leagues
+          .map((inst: { value: string; id: number }) => inst.id)
+          .join("-")}`
       );
       if (!res.ok) {
         throw new Error("Failed to fetch data.");
       }
 
-      const fetchedPlayers = (await res.json()).map(
-        (el: { name: string; player_id: number }) => {
+      const fetchedTeams = (await res.json()).map(
+        (el: { code: string; team_id: number }) => {
           return {
-            value: el.name,
-            id: el.player_id,
+            value: el.code,
+            id: el.team_id,
           };
         }
       );
 
-      setFilterOptions({ ...filterOptions, players: fetchedPlayers });
+      setFilterOptions({ ...filterOptions, teams: fetchedTeams });
       setFilterSelections({
         ...filterSelections,
-        players: fetchedPlayers,
+        teams: fetchedTeams,
       });
+    }
+  }
 
-      if (!sentInitialFilterSelections) {
-        props.getFilterSelections(
-          filterSelections.stats,
-          filterSelections.strengths,
-          fetchedPlayers,
-          filterSelections.teams,
-          filterSelections.seasons,
-          filterSelections.minGP
-        );
-        setSentInitialFilterSelections(true);
-      }
+  async function getPlayers(
+    leagueSelections: { value: string; id: number }[],
+    teamSelections: { value: string; id: number }[],
+    positionSelections: { value: string; id: number }[],
+    earliestBirthdate: string | null,
+    latestBirthdate: string | null
+  ) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_HOST}/api/players/${leagueSelections
+        .map((inst) => inst.id)
+        .join("-")}/${teamSelections
+        .map((inst) => inst.id)
+        .join("-")}/${positionSelections
+        .map((inst) => inst.id)
+        .join("-")}/${earliestBirthdate}/${latestBirthdate}`
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch data.");
     }
 
+    const fetchedPlayers = (await res.json()).map(
+      (el: { name: string; player_id: number }) => {
+        return {
+          value: el.name,
+          id: el.player_id,
+        };
+      }
+    );
+
+    setFilterOptions({
+      ...filterOptions,
+      players: fetchedPlayers,
+    });
+    setFilterSelections({
+      ...filterSelections,
+      players: fetchedPlayers,
+    });
+
+    if (!sentInitialFilterSelections) {
+      props.getFilterSelections(
+        filterSelections.stats,
+        filterSelections.strengths,
+        fetchedPlayers,
+        filterSelections.teams,
+        filterSelections.seasons,
+        filterSelections.minGP
+      );
+      setSentInitialFilterSelections(true);
+    }
+  }
+
+  useEffect(() => {
+    if (filterSelections.leagues.length > 0) {
+      getTeams();
+    } else {
+      setFilterSelections({ ...filterSelections, teams: [] });
+    }
+  }, [
+    JSON.stringify(filterSelections.leagues),
+    JSON.stringify(filterOptions.earliestBirthdate),
+  ]);
+
+  // Get players
+  useEffect(() => {
     if (
       filterSelections.leagues.length > 0 &&
       filterSelections.teams.length > 0 &&
@@ -199,7 +205,6 @@ export default function FilterContainer(props: FCProps) {
       setFilterSelections({ ...filterSelections, players: [] });
     }
   }, [
-    JSON.stringify(filterSelections.leagues),
     JSON.stringify(filterSelections.teams),
     JSON.stringify(filterSelections.positions),
     JSON.stringify(filterSelections.earliestBirthdate),
@@ -235,19 +240,19 @@ export default function FilterContainer(props: FCProps) {
         earliestBirthdate: fetchedEarliestBirthdate,
         latestBirthdate: fetchedLatestBirthdate,
       });
-      getTeams(
-        {
-          ...filterOptions,
-          earliestBirthdate: fetchedEarliestBirthdate,
-          latestBirthdate: fetchedLatestBirthdate,
-        },
-        {
-          ...filterSelections,
-          earliestBirthdate: fetchedEarliestBirthdate,
-          latestBirthdate: fetchedLatestBirthdate,
-        },
-        filterSelections.leagues
-      );
+      // getTeams(
+      //   {
+      //     ...filterOptions,
+      //     earliestBirthdate: fetchedEarliestBirthdate,
+      //     latestBirthdate: fetchedLatestBirthdate,
+      //   },
+      //   {
+      //     ...filterSelections,
+      //     earliestBirthdate: fetchedEarliestBirthdate,
+      //     latestBirthdate: fetchedLatestBirthdate,
+      //   },
+      //   filterSelections.leagues
+      // );
     }
 
     getEarliestAndLatestBirthdates();
