@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../../styles/Glossary.module.css";
 
 export default function Glossary() {
   const glossary: { name: string; def: string }[] = [
@@ -84,7 +85,7 @@ export default function Glossary() {
     },
   ];
   return (
-    <div>
+    <div id={styles.container}>
       <h3>Glossary:</h3>
       <h4>Note: Shot statistics are not currently available for the WHL.</h4>
       {glossary.map((item) => {
