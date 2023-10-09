@@ -2,7 +2,9 @@
 
 ## Description
 
-This is a website that displays player statistics from the Canadian Hockey League. Statistics are available in both totals and rate (per game) form for the 2022-23, 2021-22, and 2020-21 seasons. Please note that Ontario Hockey League statistics are not available for the 2020-21 season as the OHL did not play any games that year due to the COVID-19 pandemic. The stats can be filtered by serveral factors, including game strength (even-strength, powerplay, shorthanded, and all-situations), season, league, team, position, players, player birthdate range, and minimum games played. The resulting statistics table can also be sorted by any of its columns.
+This is a website that displays player statistics from the Canadian Hockey League. Statistics are available in both totals and rate (per game) form for the 2022-23, 2021-22, and 2020-21 seasons. The stats can be filtered according to several factors, including game strength (even-strength, powerplay, shorthanded, and all-situations), season, league, team, position, players, player birthdate range, and minimum games played. The resulting table of statistics can also be sorted by any of its columns.
+
+A pair of notes for those looking for specific statistics: First, Ontario Hockey League statistics are not available for the 2020-2021 season as the OHL did not play any games due to the COVID-19 pandemic. Second, shot statistics are not available for the Western Hockey League as the WHL does not make these available.
 
 The website can be viewed here: https://chl-stats-site.vercel.app
 
@@ -22,8 +24,8 @@ The National Hockey League's greatest source of player talent is the junior-leve
 
 ## How is it built?
 
-The website is built with NextJS and deployed with Vercel. Statistics are scraped from [chl.ca](https://chl.ca) and stored in a PostgreSQL database. The database uses [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres). Data is fetched using NextJS's [Route Handlers](https://nextjs.org/docs/app/building-your-application/routing/route-handlers).
+The website is built with NextJS. Statistics are scraped from [chl.ca](https://chl.ca) and stored in a PostgreSQL database. The website and database are hosted with [Vercel](https://vercel.com).
 
 ## Contact
 
-Email: ecmcdougald@gmail.com
+Email me: ecmcdougald@gmail.com
