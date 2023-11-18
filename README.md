@@ -6,6 +6,8 @@ This is a website that displays player statistics from the Canadian Hockey Leagu
 
 A pair of notes for those looking for specific statistics: First, Ontario Hockey League statistics are not available for the 2020-2021 season as the OHL did not play any games due to the COVID-19 pandemic. Second, shot statistics are not available for the Western Hockey League as the WHL does not make these available.
 
+Please note that the website may be slow to load data on the first load as the database cold-starts. Subsequent loads will be much faster.
+
 The website can be viewed here: https://chl-stats-site.vercel.app
 
 ## Images
